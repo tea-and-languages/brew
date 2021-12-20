@@ -1,0 +1,9 @@
+# This .gitignore file established patterns for files
+# that should not be shown by default as untracked in  git.
+
+# Executable Files
+brew
+*.exe
+
+# Generate HTML files
+*.html
