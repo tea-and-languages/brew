@@ -40,6 +40,7 @@ Parsing Command-Line Options
         fprintf(stderr, "usage: %s file1.md [...]", argv[0]);
         exit(1);
     }
+    context.options = &options;
 
     if( !argc )
     {
@@ -151,6 +152,7 @@ We only need to ensure that the type declarations for strings, and for the overa
 The definitions are then written in an order that respects their dependencies.
 
     <<definitions>>=
+    <<options definitions>>
     <<reader definitions>>
     <<string definitions>>
     <<parsing definitions>>
@@ -161,7 +163,6 @@ The definitions are then written in an order that respects their dependencies.
     <<code export definitions>>
     <<HTML export definitions>>
     <<input definitions>>
-    <<options definitions>>
 
 
 Junk

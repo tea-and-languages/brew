@@ -511,31 +511,118 @@ HTML Export
         MgWriteTextToFile(outputText, path);
     }
 
+    size_t getSize(MgString const& s)
+    {
+        return s.end - s.begin;
+    }
+
+    bool equals(MgString const& left, MgString const& right)
+    {
+        auto size = getSize(left);
+        if(size != getSize(right))
+            return false;
+        return memcmp(left.begin, right.begin, size) == 0;
+    }
+
+    bool endsWith(MgString const& string, MgString const& suffix)
+    {
+        auto size = getSize(suffix);
+        if(size > getSize(string)) return false;
+
+        auto trailing = MgMakeString(string.end - size, string.end);
+        return equals(trailing, suffix);
+    }
+
+    void trimTrailingString(
+        MgString& ioString,
+        MgString const& suffix)
+    {
+        if(endsWith(ioString, suffix))
+        {
+            auto size = getSize(suffix);
+            ioString.end = ioString.end - size;
+        }
+    }
+
+    char const* findCharReverse(MgString const& string, char c)
+    {
+        char const* cursor = string.end;
+        char const* begin = string.begin;
+        while(cursor != begin)
+        {
+            --cursor;
+            if(*cursor == c)
+                return cursor;
+        }
+        return nullptr;
+    }
+
+    void writeDocFilePath(
+        MgContext*      context,
+        MgInputFile*    inputFile,
+        MgWriter*       writer)
+    {
+        MgString inputFilePath = MgTerminatedString(inputFile->path);
+
+        // HACK: deal with `README.md` as file name...
+        trimTrailingString(inputFilePath, MgTerminatedString("README.md"));
+
+        trimTrailingString(inputFilePath, MgTerminatedString("/"));
+        trimTrailingString(inputFilePath, MgTerminatedString("\\"));
+
+        // next, try to remove any leading path parts...
+        if(auto slash = findCharReverse(inputFilePath, '/'))
+        {
+            inputFilePath.begin = slash + 1;
+        }
+
+        // remove any trailing suffix...
+        if(auto dot = findCharReverse(inputFilePath, '.'))
+        {
+            inputFilePath.end = dot;
+        }
+
+        char const* docOutputPath = context->options->docOutputPath;
+        if(docOutputPath)
+        {
+            MgWriteCString(writer, docOutputPath);
+        }
+        MgWriteString(writer, inputFilePath);
+        MgWriteCString(writer, ".html");
+    }
+
+    char* getDocFilePath(
+        MgContext*      context,
+        MgInputFile*    inputFile)
+    {
+        MgWriter writer;
+
+        int size = 0;
+        MgInitializeCountingWriter( &writer, &size );
+
+        writeDocFilePath(context, inputFile, &writer);
+
+        char* data = (char*) malloc(size + 1);
+        data[size] = 0;
+
+        MgInitializeMemoryWriter( &writer, data );
+
+        writeDocFilePath(context, inputFile, &writer);
+
+        return data;
+    }
+
     void MgWriteDocFile(
         MgContext* context,
         MgInputFile* inputFile)
     {
         // compute path for output file...
-
-        // find just the name part of the input file path
-        char const* inputFilePath = inputFile->path;
-        char const* docOutputPath = ""; // \todo: options parsing!!!
-        char const* slash = strrchr(inputFilePath, '/');
-        char const* inputFileName = slash ? slash+1 : inputFilePath;
-
-        // allocate six extra characters for worst-case ".html\0"
-        int outputPathSize = strlen(docOutputPath) + strlen(inputFileName) + 6;
-        char* outputFileName = (char*) malloc(outputPathSize);
-        char* cursor = outputFileName;
-        cursor = stpcpy(cursor, docOutputPath);
-        cursor = stpcpy(cursor, inputFileName);
-        char* dot = strrchr(outputFileName, '.');
-        cursor = strcpy(dot ? dot : cursor, ".html");
+        char* outputFilePath = getDocFilePath(context, inputFile);
 
         MgWriteDocFileToPath(
             context,
             inputFile,
-            outputFileName );
+            outputFilePath );
 
-        free(outputFileName);
+        free(outputFilePath);
     }

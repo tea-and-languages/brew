@@ -1,37 +1,37 @@
 
-#line 124 "source/main.md"
+#line 125 "./source/main.md"
     
-#line 124 "source/main.md"
+#line 125 "./source/main.md"
                
     
-#line 136 "source/main.md"
+#line 137 "./source/main.md"
     #include <assert.h>
     #include <ctype.h>
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
     
-#line 125 "source/main.md"
+#line 126 "./source/main.md"
                 
     
-#line 148 "source/main.md"
+#line 149 "./source/main.md"
     
-#line 11 "source/string.md"
+#line 11 "./source/string.md"
     typedef struct MgStringT
     {
         char const* begin;
         char const* end;
     } MgString;
     
-#line 43 "source/string.md"
+#line 43 "./source/string.md"
     MgString MgMakeString( char const* begin, char const* end );
     
-#line 148 "source/main.md"
+#line 149 "./source/main.md"
                            
     
-#line 493 "source/document.md"
+#line 494 "./source/document.md"
     
-#line 482 "source/document.md"
+#line 483 "./source/document.md"
     typedef struct MgAttributeT         MgAttribute;
     typedef struct MgContextT           MgContext;
     typedef struct MgElementT           MgElement;
@@ -42,113 +42,113 @@
     typedef struct MgScrapFileGroupT    MgScrapFileGroup;
     typedef struct MgScrapNameGroupT    MgScrapNameGroup;
     
-#line 493 "source/document.md"
+#line 494 "./source/document.md"
                                      
     
-#line 13 "source/document.md"
+#line 13 "./source/document.md"
     typedef int MgBool;
     #define MG_TRUE     (1)
     #define MG_FALSE    (0)
     
-#line 24 "source/document.md"
+#line 24 "./source/document.md"
     typedef struct MgSourceLocT
     {
         int line;
         int col;
     } MgSourceLoc;
     
-#line 40 "source/document.md"
+#line 40 "./source/document.md"
     struct MgScrapT
     {
         
-#line 48 "source/document.md"
+#line 48 "./source/document.md"
     MgSourceLoc         sourceLoc;
     MgElement*          body;
     
-#line 125 "source/document.md"
+#line 125 "./source/document.md"
     MgScrap*            next;
     
-#line 134 "source/document.md"
+#line 134 "./source/document.md"
     MgScrapFileGroup*   fileGroup;
     
-#line 42 "source/document.md"
+#line 42 "./source/document.md"
                          
     };
     
-#line 56 "source/document.md"
+#line 56 "./source/document.md"
     typedef enum MgScrapKind
     {
         
-#line 68 "source/document.md"
+#line 68 "./source/document.md"
     kScrapKind_Unknown,
     
-#line 79 "source/document.md"
+#line 79 "./source/document.md"
     kScrapKind_LocalMacro,
     
-#line 88 "source/document.md"
+#line 88 "./source/document.md"
     kScrapKind_GlobalMacro,
     
-#line 97 "source/document.md"
+#line 97 "./source/document.md"
     kScrapKind_OutputFile,
     
-#line 104 "source/document.md"
+#line 104 "./source/document.md"
     kScrapKind_RawMacro,
     
-#line 58 "source/document.md"
+#line 58 "./source/document.md"
                        
     } MgScrapKind;
     
-#line 111 "source/document.md"
+#line 111 "./source/document.md"
     struct MgScrapFileGroupT
     {
         
-#line 119 "source/document.md"
+#line 119 "./source/document.md"
     MgInputFile*      inputFile;
     
-#line 128 "source/document.md"
+#line 128 "./source/document.md"
     MgScrap*          firstScrap;
     MgScrap*          lastScrap;
     
-#line 166 "source/document.md"
+#line 166 "./source/document.md"
     MgScrapFileGroup* next;
     
-#line 175 "source/document.md"
+#line 175 "./source/document.md"
     MgScrapNameGroup* nameGroup;
     
-#line 113 "source/document.md"
+#line 113 "./source/document.md"
                                     
     };
     
-#line 141 "source/document.md"
+#line 141 "./source/document.md"
     struct MgScrapNameGroupT
     {
         
-#line 151 "source/document.md"
+#line 151 "./source/document.md"
     MgString            id;
     MgElement*          name;
     
-#line 157 "source/document.md"
+#line 157 "./source/document.md"
     MgScrapKind         kind;
     
-#line 169 "source/document.md"
+#line 169 "./source/document.md"
     MgScrapFileGroup*   firstFileGroup;
     MgScrapFileGroup*   lastFileGroup;
     
-#line 184 "source/document.md"
+#line 184 "./source/document.md"
     MgScrapNameGroup*   next;
     
-#line 143 "source/document.md"
+#line 143 "./source/document.md"
                                     
     };
     
-#line 192 "source/document.md"
+#line 192 "./source/document.md"
     struct MgLineT
     {
         MgString      text;
         char const* originalBegin;
     };
     
-#line 218 "source/document.md"
+#line 218 "./source/document.md"
     struct MgInputFileT
     {
         char const*     path;               /* path of input file (terminated) */
@@ -161,7 +161,7 @@
         MgReferenceLink*firstReferenceLink; /* first reference link parsed */
     };
     
-#line 237 "source/document.md"
+#line 237 "./source/document.md"
     struct MgContextT
     {
         MgInputFile*        firstInputFile;         /* singly-linked list of input files */
@@ -173,15 +173,16 @@
         MgInputFile*        metaDataFile;
     
         MgScrapKind         defaultScrapKind;
+        struct OptionsT*            options;
     };
     
-#line 259 "source/document.md"
+#line 260 "./source/document.md"
     typedef enum MgElementKindT
     {
         
-#line 267 "source/document.md"
+#line 268 "./source/document.md"
     
-#line 275 "source/document.md"
+#line 276 "./source/document.md"
     kMgElementKind_BlockQuote,          /* `<blockquote>` */
     kMgElementKind_HorizontalRule,      /* `<hr>` */
     kMgElementKind_UnorderedList,       /* `<ul>` */
@@ -193,7 +194,7 @@
     kMgElementKind_TableHeader,         /* `<th>` */
     kMgElementKind_TableCell,           /* `<td>` */
     
-#line 296 "source/document.md"
+#line 297 "./source/document.md"
     kMgElementKind_Header1,             /* `<h1>` */
     kMgElementKind_Header2,             /* `<h2>` */
     kMgElementKind_Header3,             /* `<h3>` */
@@ -201,54 +202,54 @@
     kMgElementKind_Header5,             /* `<h5>` */
     kMgElementKind_Header6,             /* `<h6>` */
     
-#line 309 "source/document.md"
+#line 310 "./source/document.md"
     kMgElementKind_CodeBlock,           /* `<pre><code>` */
     
-#line 316 "source/document.md"
+#line 317 "./source/document.md"
     kMgElementKind_ScrapDef,
     
-#line 332 "source/document.md"
+#line 333 "./source/document.md"
     kMgElementKind_MetaData,
     
-#line 340 "source/document.md"
+#line 341 "./source/document.md"
     kMgElementKind_HtmlBlock,
     
-#line 267 "source/document.md"
+#line 268 "./source/document.md"
                                  
     
-#line 287 "source/document.md"
+#line 288 "./source/document.md"
     kMgElementKind_Em,                  /* `<em>` */
     kMgElementKind_Strong,              /* `<strong>` */
     kMgElementKind_InlineCode,          /* `<code>` */
     
-#line 325 "source/document.md"
+#line 326 "./source/document.md"
     kMgElementKind_ScrapRef,
     
-#line 354 "source/document.md"
+#line 355 "./source/document.md"
     kMgElementKind_LessThanEntity,      /* `&lt;` */
     kMgElementKind_GreaterThanEntity,   /* `&gt;` */
     kMgElementKind_AmpersandEntity,     /* `&amp;` */
     
-#line 364 "source/document.md"
+#line 365 "./source/document.md"
     kMgElementKind_NewLine,             /* `"\n"` */
     
-#line 371 "source/document.md"
+#line 372 "./source/document.md"
     kMgElementKind_Link,                /* `<a>` with href attribute */
     
-#line 397 "source/document.md"
+#line 398 "./source/document.md"
     kMgElementKind_ReferenceLink,
     
-#line 268 "source/document.md"
+#line 269 "./source/document.md"
                                 
     
-#line 347 "source/document.md"
+#line 348 "./source/document.md"
     kMgElementKind_Text,
     
-#line 261 "source/document.md"
+#line 262 "./source/document.md"
                          
     } MgElementKind;
     
-#line 384 "source/document.md"
+#line 385 "./source/document.md"
     struct MgReferenceLinkT
     {
         MgString          id;
@@ -257,81 +258,217 @@
         MgReferenceLink*  next;
     };
     
-#line 405 "source/document.md"
+#line 406 "./source/document.md"
     struct MgAttributeT
     {
         
-#line 419 "source/document.md"
+#line 420 "./source/document.md"
     MgString              id;
     
-#line 424 "source/document.md"
+#line 425 "./source/document.md"
     MgAttribute*          next;
     
-#line 407 "source/document.md"
+#line 408 "./source/document.md"
                              
         union
         {
             
-#line 429 "source/document.md"
+#line 430 "./source/document.md"
     MgString          val;
     
-#line 434 "source/document.md"
+#line 435 "./source/document.md"
     MgReferenceLink*  referenceLink;
     MgScrap*          scrap;
     MgScrapFileGroup* scrapFileGroup;
     MgSourceLoc       sourceLoc;
     
-#line 410 "source/document.md"
+#line 411 "./source/document.md"
                                        
         };
     };
     
-#line 444 "source/document.md"
+#line 445 "./source/document.md"
     struct MgElementT
     {
         
-#line 452 "source/document.md"
+#line 453 "./source/document.md"
     MgElementKind   kind;
     
-#line 458 "source/document.md"
+#line 459 "./source/document.md"
     MgString        text;
     
-#line 463 "source/document.md"
+#line 464 "./source/document.md"
     MgAttribute*    firstAttr;
     
-#line 468 "source/document.md"
+#line 469 "./source/document.md"
     MgElement*      firstChild;
     MgElement*      next;
     
-#line 446 "source/document.md"
+#line 447 "./source/document.md"
                            
     };
     
-#line 494 "source/document.md"
+#line 495 "./source/document.md"
                                   
     
-#line 149 "source/main.md"
+#line 150 "./source/main.md"
                              
     
-#line 126 "source/main.md"
+#line 127 "./source/main.md"
                     
     
-#line 154 "source/main.md"
+#line 155 "./source/main.md"
     
-#line 13 "source/reader.md"
+#line 6 "./source/options.md"
+    /* Command-Line Options */
+    
+    typedef struct OptionsT
+    {
+        char const* executableName;
+        char const* docOutputPath;
+        char const* sourceOutputPath;
+        char const* metaDataFilePath;
+        MgBool generateHTML;
+        MgScrapKind defaultScrapKind;
+    } Options;
+    
+    void InitializeOptions(
+        Options*    options )
+    {
+        options->executableName     = "mangle";
+        options->docOutputPath      = 0;
+        options->sourceOutputPath   = 0;
+        options->metaDataFilePath   = 0;
+        options->defaultScrapKind = kScrapKind_GlobalMacro;
+        options->generateHTML = MG_FALSE;
+    }
+    
+    int ParseOptions(
+        Options*    options,
+        int*        ioArgCount,
+        char**      argv )
+    {
+        int     remaining   = *ioArgCount;
+        char**  readCursor  = argv;
+    
+        char**  writeCursor = argv;
+        int     outArgCount = 0;
+    
+        if( remaining > 0 )
+        {
+            options->executableName = *readCursor++;
+            --remaining;
+        }
+    
+        while(remaining)
+        {
+            char* option = *readCursor++;
+            --remaining;
+    
+            if( option[0] == '-' )
+            {
+                if(strcmp(option+1, "-") == 0)
+                {
+                    // treat an `--` option as marking the end of the list
+                    break;
+                }
+                else if( strcmp(option+1, "meta") == 0 )
+                {
+                    // meta-data file
+                    if( remaining != 0 )
+                    {
+                        options->metaDataFilePath = *readCursor++;
+                        --remaining;
+                        continue;
+                    }
+                    else
+                    {
+                        fprintf(stderr, "expected argument for option %s\n", option);
+                        return 0;
+                    }
+                }
+                else if( strcmp(option+1, "output-docs-dir") == 0 )
+                {
+                    // meta-data file
+                    if( remaining != 0 )
+                    {
+                        options->docOutputPath = *readCursor++;
+                        --remaining;
+                        continue;
+                    }
+                    else
+                    {
+                        fprintf(stderr, "expected argument for option %s\n", option);
+                        return 0;
+                    }
+                }
+                else if( strcmp(option+1, "output-source-dir") == 0 )
+                {
+                    // meta-data file
+                    if( remaining != 0 )
+                    {
+                        options->sourceOutputPath = *readCursor++;
+                        --remaining;
+                        continue;
+                    }
+                    else
+                    {
+                        fprintf(stderr, "expected argument for option %s\n", option);
+                        return 0;
+                    }
+                }
+                else if( strcmp(option+1, "generate-html") == 0)
+                {
+                    options->generateHTML = MG_TRUE;
+                }
+                else if( strcmp(option+1, "local-scoping") == 0)
+                {
+                    options->defaultScrapKind = kScrapKind_LocalMacro;
+                }
+                else
+                {
+                    fprintf(stderr, "unknown option: %s\n", option);
+                    return 0;
+                }
+            }
+            else
+            {
+                // default logic
+                *writeCursor++ = option;
+                ++outArgCount;
+            }
+        }
+    
+        // pass through any options after `--` without inspecting them
+        while( remaining )
+        {
+            char* option = *readCursor++;
+            --remaining;
+            *writeCursor++ = option;
+            ++outArgCount;
+        }
+    
+        *ioArgCount = outArgCount;
+        return 1;
+    }
+    
+#line 155 "./source/main.md"
+                           
+    
+#line 13 "./source/reader.md"
     typedef struct MgReaderT
     {
         MgString    string;
         char const* cursor;
     } MgReader;
     
-#line 23 "source/reader.md"
+#line 23 "./source/reader.md"
     enum
     {
         kMgEndOfFile = -1,
     };
     
-#line 31 "source/reader.md"
+#line 31 "./source/reader.md"
     void MgInitializeStringReader(
         MgReader*   reader,
         MgString          string )
@@ -340,14 +477,14 @@
         reader->cursor  = string.begin;    
     }
     
-#line 42 "source/reader.md"
+#line 42 "./source/reader.md"
     MgBool MgAtEnd(
         MgReader*   reader )
     {
         return reader->cursor == reader->string.end;
     }
     
-#line 52 "source/reader.md"
+#line 52 "./source/reader.md"
     int MgGetChar(
         MgReader*   reader )
     {
@@ -357,7 +494,7 @@
         return *(reader->cursor++);
     }
     
-#line 65 "source/reader.md"
+#line 65 "./source/reader.md"
     void MgUnGetChar(
         MgReader*   reader,
         int             value )
@@ -368,7 +505,7 @@
         --(reader->cursor);
     }
     
-#line 81 "source/reader.md"
+#line 81 "./source/reader.md"
     int MgPeekChar(
         MgReader*   reader )
     {
@@ -378,23 +515,23 @@
         return *(reader->cursor);
     }
     
-#line 154 "source/main.md"
+#line 156 "./source/main.md"
                           
     
-#line 23 "source/string.md"
+#line 23 "./source/string.md"
     static MgBool MgIsEmptyString(
         MgString string)
     {
         return string.begin == string.end;
     }
     
-#line 32 "source/string.md"
+#line 32 "./source/string.md"
     MgString MgMakeEmptyString()
     {
         return MgMakeString(NULL, NULL);
     }
     
-#line 46 "source/string.md"
+#line 46 "./source/string.md"
     MgString MgMakeString(
         char const* begin,
         char const* end)
@@ -405,14 +542,14 @@
         return result;
     }
     
-#line 60 "source/string.md"
+#line 60 "./source/string.md"
     MgString MgTerminatedString(
         char const* begin)
     {
         return MgMakeString(begin, begin + strlen(begin));
     }
     
-#line 74 "source/string.md"
+#line 74 "./source/string.md"
     MgBool MgStringsAreEqual(
         MgString left,
         MgString right )
@@ -423,32 +560,32 @@
         for(;;)
         {
             
-#line 93 "source/string.md"
+#line 93 "./source/string.md"
     MgBool leftAtEnd = leftCursor == left.end;
     MgBool rightAtEnd = rightCursor == right.end;
     if( leftAtEnd || rightAtEnd )
         return leftAtEnd == rightAtEnd;
     
-#line 83 "source/string.md"
+#line 83 "./source/string.md"
                                         
             
-#line 101 "source/string.md"
+#line 101 "./source/string.md"
     char leftChar = *leftCursor++;
     char rightChar = *rightCursor++;
     
-#line 84 "source/string.md"
+#line 84 "./source/string.md"
                                           
             
-#line 105 "source/string.md"
+#line 105 "./source/string.md"
     if( leftChar != rightChar )
         return MG_FALSE;
     
-#line 85 "source/string.md"
+#line 85 "./source/string.md"
                                                
         }
     }
     
-#line 113 "source/string.md"
+#line 113 "./source/string.md"
     MgBool MgStringsAreEqualNoCase(
         MgString left,
         MgString right )
@@ -459,35 +596,35 @@
         for(;;)
         {
             
-#line 93 "source/string.md"
+#line 93 "./source/string.md"
     MgBool leftAtEnd = leftCursor == left.end;
     MgBool rightAtEnd = rightCursor == right.end;
     if( leftAtEnd || rightAtEnd )
         return leftAtEnd == rightAtEnd;
     
-#line 122 "source/string.md"
+#line 122 "./source/string.md"
                                         
             
-#line 101 "source/string.md"
+#line 101 "./source/string.md"
     char leftChar = *leftCursor++;
     char rightChar = *rightCursor++;
     
-#line 123 "source/string.md"
+#line 123 "./source/string.md"
                                           
             
-#line 129 "source/string.md"
+#line 129 "./source/string.md"
     if( tolower(leftChar) != tolower(rightChar) )
         return MG_FALSE;
     
-#line 124 "source/string.md"
+#line 124 "./source/string.md"
                                                                 
         }
     }
     
-#line 155 "source/main.md"
+#line 157 "./source/main.md"
                           
     
-#line 5 "source/parse.md"
+#line 5 "./source/parse.md"
     enum
     {
         kMaxHeaderLevel = 6,
@@ -855,10 +992,10 @@
         return sourceLoc;
     }
     
-#line 156 "source/main.md"
+#line 158 "./source/main.md"
                            
     
-#line 5 "source/parse-span.md"
+#line 5 "./source/parse-span.md"
     /*
     ### Span-Level Elements ###
     */
@@ -1435,27 +1572,27 @@
         return writer.firstElement;
     }
     
-#line 157 "source/main.md"
+#line 159 "./source/main.md"
                                       
     
-#line 2123 "source/parse-block.md"
+#line 2123 "./source/parse-block.md"
     
-#line 34 "source/parse-block.md"
+#line 34 "./source/parse-block.md"
     typedef struct LineRangeT
     {
         MgLine* begin;
         MgLine* end;
     } LineRange;
     
-#line 101 "source/parse-block.md"
+#line 101 "./source/parse-block.md"
     #define BLOCK_PARSE_FUNC(Name) \
         MgElement* Name( MgContext* context, MgInputFile* inputFile, LineRange* ioLineRange )
     typedef BLOCK_PARSE_FUNC((*BlockParseFunc));
     
-#line 2123 "source/parse-block.md"
+#line 2123 "./source/parse-block.md"
                                  
     
-#line 21 "source/parse-block.md"
+#line 21 "./source/parse-block.md"
     MgElement* ParseBlockElement(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -1466,7 +1603,7 @@
         MgInputFile*    inputFile,
         LineRange       lineRange );
     
-#line 342 "source/parse-block.md"
+#line 342 "./source/parse-block.md"
     MgElement* ParseSetextHeader(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -1474,7 +1611,7 @@
         char            c,
         MgElementKind   kind );
     
-#line 869 "source/parse-block.md"
+#line 869 "./source/parse-block.md"
     MgElement* ParseCodeBlockBody(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -1482,7 +1619,7 @@
         char const*     langBegin,
         char const*     langEnd );
     
-#line 2101 "source/parse-block.md"
+#line 2101 "./source/parse-block.md"
     char const* CheckIndentedCodeLine(
         MgLine* line );
     MgBool CheckLiterateScrapIntroductionLine(
@@ -1500,10 +1637,10 @@
         char const**    outScrapNameBegin,
         char const**    outScrapNameEnd );
     
-#line 2124 "source/parse-block.md"
+#line 2124 "./source/parse-block.md"
                                         
     
-#line 272 "source/parse-block.md"
+#line 272 "./source/parse-block.md"
     MgBool IsBlankLine( MgLine* line )
     {
         char const* cursor = line->text.begin;
@@ -1517,7 +1654,7 @@
         return MG_TRUE;
     }
     
-#line 1917 "source/parse-block.md"
+#line 1917 "./source/parse-block.md"
     void SkipEmptyLines(
         LineRange*  ioLineRange )
     {
@@ -1533,7 +1670,7 @@
         }
     }
     
-#line 1935 "source/parse-block.md"
+#line 1935 "./source/parse-block.md"
     MgElement* ReadSpansInRange(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -1697,10 +1834,10 @@
         }
     }
     
-#line 2125 "source/parse-block.md"
+#line 2125 "./source/parse-block.md"
                                      
     
-#line 46 "source/parse-block.md"
+#line 46 "./source/parse-block.md"
     MgElement* ParseBlockElementsInRange(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -1712,38 +1849,38 @@
         for(;;)
         {
             
-#line 67 "source/parse-block.md"
+#line 67 "./source/parse-block.md"
     SkipEmptyLines(&lineRange);
     
-#line 75 "source/parse-block.md"
+#line 75 "./source/parse-block.md"
     if( lineRange.begin == lineRange.end )
         break;
     
-#line 68 "source/parse-block.md"
+#line 68 "./source/parse-block.md"
                                
     
-#line 81 "source/parse-block.md"
+#line 81 "./source/parse-block.md"
     MgElement* element = ParseBlockElement( context, inputFile, &lineRange );
     
-#line 69 "source/parse-block.md"
+#line 69 "./source/parse-block.md"
                                     
     
-#line 86 "source/parse-block.md"
+#line 86 "./source/parse-block.md"
     *elementLink = element;
     while( *elementLink )
         elementLink = &(*elementLink)->next;
     
-#line 70 "source/parse-block.md"
+#line 70 "./source/parse-block.md"
                                               
     
-#line 56 "source/parse-block.md"
+#line 56 "./source/parse-block.md"
                                                                  
         }
     
         return elements;
     }
     
-#line 210 "source/parse-block.md"
+#line 210 "./source/parse-block.md"
     MgElement* ParseBlockLevelHtml(
         MgContext*    context,
         MgInputFile*  inputFile,
@@ -1791,7 +1928,7 @@
             firstChild );
     }
     
-#line 288 "source/parse-block.md"
+#line 288 "./source/parse-block.md"
     BLOCK_PARSE_FUNC(ParseDefaultParagraph)
     {
         MgLine* firstLine = GetLine( ioLineRange );
@@ -1817,7 +1954,7 @@
             firstChild );
     }
     
-#line 353 "source/parse-block.md"
+#line 353 "./source/parse-block.md"
     BLOCK_PARSE_FUNC(ParseSetextHeader1)
     {
         return ParseSetextHeader(
@@ -1836,7 +1973,7 @@
             kMgElementKind_Header2 );
     }
     
-#line 377 "source/parse-block.md"
+#line 377 "./source/parse-block.md"
     MgElement* ParseSetextHeader(
         MgContext*    context,
         MgInputFile*  inputFile,
@@ -1845,20 +1982,20 @@
         MgElementKind   kind )
     {
         
-#line 408 "source/parse-block.md"
+#line 408 "./source/parse-block.md"
     MgLine* firstLine = GetLine(ioLineRange);
     MgLine* secondLine = GetLine(ioLineRange);
     if( !secondLine ) return 0;
     
-#line 384 "source/parse-block.md"
+#line 384 "./source/parse-block.md"
                                  
     
         
-#line 419 "source/parse-block.md"
+#line 419 "./source/parse-block.md"
     if(!LineIsAll(secondLine, c))
         return 0;
     
-#line 386 "source/parse-block.md"
+#line 386 "./source/parse-block.md"
                                                       
     
         // the inner range does not include the second line,
@@ -1877,7 +2014,7 @@
             firstChild );
     }
     
-#line 449 "source/parse-block.md"
+#line 449 "./source/parse-block.md"
     MgElement* ParseAtxHeader(
         MgContext*    context,
         MgInputFile*  inputFile,
@@ -1921,7 +2058,7 @@
             firstChild );
     }
     
-#line 542 "source/parse-block.md"
+#line 542 "./source/parse-block.md"
     char const* CheckQuoteLine(
         MgLine* line )
     {
@@ -1990,7 +2127,7 @@
             firstChild );
     }
     
-#line 618 "source/parse-block.md"
+#line 618 "./source/parse-block.md"
     char const* CheckUnorderedListLine(
         MgLine* line )
     {
@@ -2232,7 +2369,7 @@
             &CheckUnorderedListLine );
     }
     
-#line 893 "source/parse-block.md"
+#line 893 "./source/parse-block.md"
     char const* CheckIndentedCodeLine(
         MgLine* line )
     {
@@ -2316,7 +2453,7 @@
             0, 0 ); // no way to pass in a language name
     }
     
-#line 981 "source/parse-block.md"
+#line 981 "./source/parse-block.md"
     char const* CheckBracketedCodeLine(
         MgLine* line,
         char    c )
@@ -2398,7 +2535,7 @@
         return ParseBracketedCode( context, inputFile, ioLineRange, '~' );
     }
     
-#line 1066 "source/parse-block.md"
+#line 1066 "./source/parse-block.md"
     MgBool CheckLiterateScrapIntroductionLine(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -2495,7 +2632,7 @@
         return element;
     }
     
-#line 1164 "source/parse-block.md"
+#line 1164 "./source/parse-block.md"
     MgBool ParseLiterateScrapIntroduction(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -2674,7 +2811,7 @@
         return MG_TRUE;
     }
     
-#line 1364 "source/parse-block.md"
+#line 1364 "./source/parse-block.md"
     MgElement* ParseHorizontalRule(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -2740,7 +2877,7 @@
         return ParseHorizontalRule( context, inputFile, ioLineRange, '_' );
     }
     
-#line 1452 "source/parse-block.md"
+#line 1452 "./source/parse-block.md"
     MgBool ParseLinkDefinitionTitle(
         MgReader*   reader,
         char const**    outTitleBegin,
@@ -2887,7 +3024,7 @@
             MgMakeString(NULL, NULL));
     }
     
-#line 1605 "source/parse-block.md"
+#line 1605 "./source/parse-block.md"
     int CountTableLinePipes(
         MgLine*   line)
     {
@@ -3088,7 +3225,7 @@
             firstRow );
     }
     
-#line 1810 "source/parse-block.md"
+#line 1810 "./source/parse-block.md"
     MgElement* ParseMetaData(
         MgContext*      context,
         MgInputFile*    inputFile,
@@ -3192,17 +3329,17 @@
         return firstElement;    
     }
     
-#line 2126 "source/parse-block.md"
+#line 2126 "./source/parse-block.md"
                                        
     
-#line 111 "source/parse-block.md"
+#line 111 "./source/parse-block.md"
     BLOCK_PARSE_FUNC(ParseBlockElement)
     {
         static const BlockParseFunc kBlockParseFuncs[] = {
             
-#line 146 "source/parse-block.md"
+#line 146 "./source/parse-block.md"
     
-#line 155 "source/parse-block.md"
+#line 155 "./source/parse-block.md"
     &ParseLinkDefinition,
     &ParseTable,
     &ParseBlockLevelHtml,
@@ -3212,38 +3349,38 @@
     &ParseBracketedCode_Tilde,
     &ParseAtxHeader,
     
-#line 146 "source/parse-block.md"
+#line 146 "./source/parse-block.md"
                                                     
     
-#line 168 "source/parse-block.md"
+#line 168 "./source/parse-block.md"
     &ParseHorizontalRule_Hypen,
     &ParseHorizontalRule_Asterisk,
     &ParseHorizontalRule_Underscore,
     
-#line 147 "source/parse-block.md"
+#line 147 "./source/parse-block.md"
                                                  
     
-#line 173 "source/parse-block.md"
+#line 173 "./source/parse-block.md"
     &ParseOrderedList,
     &ParseUnorderedList,
     
-#line 148 "source/parse-block.md"
+#line 148 "./source/parse-block.md"
                                       
     
-#line 180 "source/parse-block.md"
+#line 180 "./source/parse-block.md"
     &ParseSetextHeader1,
     &ParseSetextHeader2,
     
-#line 149 "source/parse-block.md"
+#line 149 "./source/parse-block.md"
                                                
     
-#line 188 "source/parse-block.md"
+#line 188 "./source/parse-block.md"
     &ParseDefaultParagraph,
     
-#line 150 "source/parse-block.md"
+#line 150 "./source/parse-block.md"
                                                   
     
-#line 114 "source/parse-block.md"
+#line 114 "./source/parse-block.md"
                                                      
         };
     
@@ -3251,46 +3388,46 @@
         for(;;)
         {
             
-#line 131 "source/parse-block.md"
+#line 131 "./source/parse-block.md"
     LineRange lineRange = *ioLineRange;
     MgElement* element = (*funcCursor)( context, inputFile, &lineRange );
     
-#line 120 "source/parse-block.md"
+#line 120 "./source/parse-block.md"
                                                                   
             
-#line 137 "source/parse-block.md"
+#line 137 "./source/parse-block.md"
     if( element )
     {
         *ioLineRange = lineRange;            
         return element;
     }
     
-#line 121 "source/parse-block.md"
+#line 121 "./source/parse-block.md"
                                                                              
             ++funcCursor;
         }
     }
     
-#line 2127 "source/parse-block.md"
+#line 2127 "./source/parse-block.md"
                                     
     
-#line 158 "source/main.md"
+#line 160 "./source/main.md"
                            
     
-#line 7 "source/writer.md"
+#line 7 "./source/writer.md"
     typedef struct MgWriterT MgWriter;
     
-#line 12 "source/writer.md"
+#line 12 "./source/writer.md"
     typedef void (*MgPutCharFunc)( MgWriter*, int );
     
-#line 25 "source/writer.md"
+#line 25 "./source/writer.md"
     struct MgWriterT
     {
         MgPutCharFunc   putCharFunc;
         void*           userData;
     };
     
-#line 34 "source/writer.md"
+#line 34 "./source/writer.md"
     void MgPutChar(
         MgWriter*   writer,
         int         value )
@@ -3298,7 +3435,7 @@
         writer->putCharFunc( writer, value );
     }
     
-#line 46 "source/writer.md"
+#line 46 "./source/writer.md"
     void MgWriteString(
         MgWriter* writer,
         MgString  string )
@@ -3308,7 +3445,7 @@
             MgPutChar( writer, *cursor++ );
     }
     
-#line 58 "source/writer.md"
+#line 58 "./source/writer.md"
     void MgWriteCString(
         MgWriter*   writer,
         char const* text)
@@ -3318,7 +3455,7 @@
             MgPutChar( writer, *cursor++ );
     }
     
-#line 75 "source/writer.md"
+#line 75 "./source/writer.md"
     void MemoryWriter_PutChar(
         MgWriter* writer,
         int     value )
@@ -3328,7 +3465,7 @@
         writer->userData = cursor;
     }
     
-#line 87 "source/writer.md"
+#line 87 "./source/writer.md"
     void MgInitializeMemoryWriter(
         MgWriter*   writer,
         void*       data )
@@ -3337,7 +3474,7 @@
         writer->userData    = data;
     }
     
-#line 105 "source/writer.md"
+#line 105 "./source/writer.md"
     void CountingWriter_PutChar(
         MgWriter* writer,
         int     value )
@@ -3346,7 +3483,7 @@
         ++(*counter);
     }
     
-#line 117 "source/writer.md"
+#line 117 "./source/writer.md"
     void MgInitializeCountingWriter(
         MgWriter* writer,
         int*    counter )
@@ -3356,10 +3493,10 @@
         *counter = 0;
     }
     
-#line 159 "source/main.md"
+#line 161 "./source/main.md"
                           
     
-#line 8 "source/export.md"
+#line 8 "./source/export.md"
     MgAttribute* MgFindAttribute(
         MgElement*  pp,
         char const* id )
@@ -3373,7 +3510,7 @@
         return 0;
     }
     
-#line 27 "source/export.md"
+#line 27 "./source/export.md"
     MgBool TextIsSameAsFileOnDisk(
         MgString  text,
         char const* filePath)
@@ -3399,7 +3536,7 @@
         }
     }
     
-#line 58 "source/export.md"
+#line 58 "./source/export.md"
     void MgWriteTextToFile(
         MgString      text,
         char const* filePath)
@@ -3421,10 +3558,10 @@
         fclose(file);
     }
     
-#line 160 "source/main.md"
+#line 162 "./source/main.md"
                           
     
-#line 5 "source/export-code.md"
+#line 5 "./source/export-code.md"
     void ExportScrapFileGroup(
         MgContext*        context,
         MgScrapFileGroup* scrapFileGroup,
@@ -3635,22 +3772,40 @@
         }
     }
     
+    void writeOutputPath(
+        MgContext*          context,
+        MgScrapNameGroup*   codeFile,
+        MgWriter*           writer)
+    {
+        // if we have an output path, write it first...
+        auto sourcePath = context->options->sourceOutputPath;
+        if(sourcePath)
+        {
+            MgWriteCString(writer, sourcePath);
+        }
+    
+        MgString id = codeFile->id;
+        MgWriteString(writer, id);
+    }
+    
     void MgWriteCodeFile(
         MgContext*          context,
         MgScrapNameGroup*   codeFile )
     {
         MgString id = codeFile->id;
     
-        // \todo: alloca or malloc the name buffer when required...
-        char nameBuffer[1024];
-        char* writeCursor = &nameBuffer[0];
-        char const* readCursor = id.begin;
-        char const* end = id.end;
-        while( readCursor != end )
-        {
-            *writeCursor++ = *readCursor++;
-        }
-        *writeCursor++ = 0;
+        // We want to construct the name of the file to write
+        int pathSize = 0;
+        MgWriter pathWriter;
+        MgInitializeCountingWriter( &pathWriter, &pathSize );
+        writeOutputPath(context, codeFile, &pathWriter);
+    
+        char* pathBuffer = (char*) malloc(pathSize + 1);
+        char const* outputPath = pathBuffer;
+        pathBuffer[pathSize] = 0;
+    
+        MgInitializeMemoryWriter( &pathWriter, pathBuffer );
+        writeOutputPath(context, codeFile, &pathWriter);
     
         MgWriter writer;
     
@@ -3667,13 +3822,13 @@
         ExportScrapNameGroupImpl( context, codeFile, &writer );
     
         MgString outputText = MgMakeString( outputBuffer, outputBuffer + outputSize );
-        MgWriteTextToFile(outputText, nameBuffer);
+        MgWriteTextToFile(outputText, outputPath);
     }
     
-#line 161 "source/main.md"
+#line 163 "./source/main.md"
                                
     
-#line 5 "source/export-html.md"
+#line 5 "./source/export-html.md"
     void WriteElement(
         MgContext*    context,
         MgElement*  pp,
@@ -4183,39 +4338,126 @@
         MgWriteTextToFile(outputText, path);
     }
     
+    size_t getSize(MgString const& s)
+    {
+        return s.end - s.begin;
+    }
+    
+    bool equals(MgString const& left, MgString const& right)
+    {
+        auto size = getSize(left);
+        if(size != getSize(right))
+            return false;
+        return memcmp(left.begin, right.begin, size) == 0;
+    }
+    
+    bool endsWith(MgString const& string, MgString const& suffix)
+    {
+        auto size = getSize(suffix);
+        if(size > getSize(string)) return false;
+    
+        auto trailing = MgMakeString(string.end - size, string.end);
+        return equals(trailing, suffix);
+    }
+    
+    void trimTrailingString(
+        MgString& ioString,
+        MgString const& suffix)
+    {
+        if(endsWith(ioString, suffix))
+        {
+            auto size = getSize(suffix);
+            ioString.end = ioString.end - size;
+        }
+    }
+    
+    char const* findCharReverse(MgString const& string, char c)
+    {
+        char const* cursor = string.end;
+        char const* begin = string.begin;
+        while(cursor != begin)
+        {
+            --cursor;
+            if(*cursor == c)
+                return cursor;
+        }
+        return nullptr;
+    }
+    
+    void writeDocFilePath(
+        MgContext*      context,
+        MgInputFile*    inputFile,
+        MgWriter*       writer)
+    {
+        MgString inputFilePath = MgTerminatedString(inputFile->path);
+    
+        // HACK: deal with `README.md` as file name...
+        trimTrailingString(inputFilePath, MgTerminatedString("README.md"));
+    
+        trimTrailingString(inputFilePath, MgTerminatedString("/"));
+        trimTrailingString(inputFilePath, MgTerminatedString("\\"));
+    
+        // next, try to remove any leading path parts...
+        if(auto slash = findCharReverse(inputFilePath, '/'))
+        {
+            inputFilePath.begin = slash + 1;
+        }
+    
+        // remove any trailing suffix...
+        if(auto dot = findCharReverse(inputFilePath, '.'))
+        {
+            inputFilePath.end = dot;
+        }
+    
+        char const* docOutputPath = context->options->docOutputPath;
+        if(docOutputPath)
+        {
+            MgWriteCString(writer, docOutputPath);
+        }
+        MgWriteString(writer, inputFilePath);
+        MgWriteCString(writer, ".html");
+    }
+    
+    char* getDocFilePath(
+        MgContext*      context,
+        MgInputFile*    inputFile)
+    {
+        MgWriter writer;
+    
+        int size = 0;
+        MgInitializeCountingWriter( &writer, &size );
+    
+        writeDocFilePath(context, inputFile, &writer);
+    
+        char* data = (char*) malloc(size + 1);
+        data[size] = 0;
+    
+        MgInitializeMemoryWriter( &writer, data );
+    
+        writeDocFilePath(context, inputFile, &writer);
+    
+        return data;
+    }
+    
     void MgWriteDocFile(
         MgContext* context,
         MgInputFile* inputFile)
     {
         // compute path for output file...
-    
-        // find just the name part of the input file path
-        char const* inputFilePath = inputFile->path;
-        char const* docOutputPath = ""; // \todo: options parsing!!!
-        char const* slash = strrchr(inputFilePath, '/');
-        char const* inputFileName = slash ? slash+1 : inputFilePath;
-    
-        // allocate six extra characters for worst-case ".html\0"
-        int outputPathSize = strlen(docOutputPath) + strlen(inputFileName) + 6;
-        char* outputFileName = (char*) malloc(outputPathSize);
-        char* cursor = outputFileName;
-        cursor = stpcpy(cursor, docOutputPath);
-        cursor = stpcpy(cursor, inputFileName);
-        char* dot = strrchr(outputFileName, '.');
-        cursor = strcpy(dot ? dot : cursor, ".html");
+        char* outputFilePath = getDocFilePath(context, inputFile);
     
         MgWriteDocFileToPath(
             context,
             inputFile,
-            outputFileName );
+            outputFilePath );
     
-        free(outputFileName);
+        free(outputFilePath);
     }
     
-#line 162 "source/main.md"
+#line 164 "./source/main.md"
                                
     
-#line 5 "source/input.md"
+#line 5 "./source/input.md"
     MgString ReadLineText(
         MgReader* reader )
     {
@@ -4563,165 +4805,29 @@
         return inputFile;
     }
     
-#line 163 "source/main.md"
+#line 165 "./source/main.md"
                          
     
-#line 6 "source/options.md"
-    /* Command-Line Options */
-    
-    typedef struct OptionsT
-    {
-        char const* executableName;
-        char const* docOutputPath;
-        char const* sourceOutputPath;
-        char const* metaDataFilePath;
-        MgBool generateHTML;
-        MgScrapKind defaultScrapKind;
-    } Options;
-    
-    void InitializeOptions(
-        Options*    options )
-    {
-        options->executableName     = "mangle";
-        options->docOutputPath      = 0;
-        options->sourceOutputPath   = 0;
-        options->metaDataFilePath   = 0;
-        options->defaultScrapKind = kScrapKind_GlobalMacro;
-        options->generateHTML = MG_FALSE;
-    }
-    
-    int ParseOptions(
-        Options*    options,
-        int*        ioArgCount,
-        char**      argv )
-    {
-        int     remaining   = *ioArgCount;
-        char**  readCursor  = argv;
-    
-        char**  writeCursor = argv;
-        int     outArgCount = 0;
-    
-        if( remaining > 0 )
-        {
-            options->executableName = *readCursor++;
-            --remaining;
-        }
-    
-        while(remaining)
-        {
-            char* option = *readCursor++;
-            --remaining;
-    
-            if( option[0] == '-' )
-            {
-                if(strcmp(option+1, "-") == 0)
-                {
-                    // treat an `--` option as marking the end of the list
-                    break;
-                }
-                else if( strcmp(option+1, "meta") == 0 )
-                {
-                    // meta-data file
-                    if( remaining != 0 )
-                    {
-                        options->metaDataFilePath = *readCursor++;
-                        --remaining;
-                        continue;
-                    }
-                    else
-                    {
-                        fprintf(stderr, "expected argument for option %s\n", option);
-                        return 0;
-                    }
-                }
-                else if( strcmp(option+1, "output-docs-dir") == 0 )
-                {
-                    // meta-data file
-                    if( remaining != 0 )
-                    {
-                        options->docOutputPath = *readCursor++;
-                        --remaining;
-                        continue;
-                    }
-                    else
-                    {
-                        fprintf(stderr, "expected argument for option %s\n", option);
-                        return 0;
-                    }
-                }
-                else if( strcmp(option+1, "output-source-dir") == 0 )
-                {
-                    // meta-data file
-                    if( remaining != 0 )
-                    {
-                        options->sourceOutputPath = *readCursor++;
-                        --remaining;
-                        continue;
-                    }
-                    else
-                    {
-                        fprintf(stderr, "expected argument for option %s\n", option);
-                        return 0;
-                    }
-                }
-                else if( strcmp(option+1, "generate-html") == 0)
-                {
-                    options->generateHTML = MG_TRUE;
-                }
-                else if( strcmp(option+1, "local-scoping") == 0)
-                {
-                    options->defaultScrapKind = kScrapKind_LocalMacro;
-                }
-                else
-                {
-                    fprintf(stderr, "unknown option: %s\n", option);
-                    return 0;
-                }
-            }
-            else
-            {
-                // default logic
-                *writeCursor++ = option;
-                ++outArgCount;
-            }
-        }
-    
-        // pass through any options after `--` without inspecting them
-        while( remaining )
-        {
-            char* option = *readCursor++;
-            --remaining;
-            *writeCursor++ = option;
-            ++outArgCount;
-        }
-    
-        *ioArgCount = outArgCount;
-        return 1;
-    }
-    
-#line 164 "source/main.md"
-                           
-    
-#line 127 "source/main.md"
+#line 128 "./source/main.md"
                    
     
-#line 128 "source/main.md"
+#line 129 "./source/main.md"
                
     
-#line 7 "source/main.md"
+#line 7 "./source/main.md"
     int main(
         int     argc,
         char**  argv )
     {
         
-#line 24 "source/main.md"
+#line 24 "./source/main.md"
     MgContext context;
     memset(&context, 0, sizeof(context));
     
-#line 11 "source/main.md"
+#line 11 "./source/main.md"
                       
         
-#line 34 "source/main.md"
+#line 34 "./source/main.md"
     Options options;
     InitializeOptions( &options );
     
@@ -4731,6 +4837,7 @@
         fprintf(stderr, "usage: %s file1.md [...]", argv[0]);
         exit(1);
     }
+    context.options = &options;
     
     if( !argc )
     {
@@ -4739,44 +4846,44 @@
     }
     context.defaultScrapKind = options.defaultScrapKind;
     
-#line 12 "source/main.md"
+#line 12 "./source/main.md"
                          
         
-#line 57 "source/main.md"
+#line 58 "./source/main.md"
     
-#line 63 "source/main.md"
+#line 64 "./source/main.md"
     if( options.metaDataFilePath )
     {
         MgAddMetaDataFile( &context, options.metaDataFilePath );
     }
     
-#line 57 "source/main.md"
+#line 58 "./source/main.md"
                                       
     
-#line 72 "source/main.md"
+#line 73 "./source/main.md"
     for( int ii = 0; ii < argc; ++ii )
     {
         char const* path = argv[ii];
         
-#line 81 "source/main.md"
+#line 82 "./source/main.md"
     if( !MgAddInputFilePath( &context, path ) )
     {
         exit(1);
     }
     
-#line 75 "source/main.md"
+#line 76 "./source/main.md"
                                            
     }
     
-#line 58 "source/main.md"
+#line 59 "./source/main.md"
                                  
     
-#line 13 "source/main.md"
+#line 13 "./source/main.md"
                        
         
-#line 92 "source/main.md"
+#line 93 "./source/main.md"
     
-#line 110 "source/main.md"
+#line 111 "./source/main.md"
     for( MgScrapNameGroup* group = context.firstScrapNameGroup; group; group = group->next )
     {
         if( group->kind != kScrapKind_OutputFile )
@@ -4785,23 +4892,23 @@
         MgWriteCodeFile( &context, group );
     }
     
-#line 92 "source/main.md"
+#line 93 "./source/main.md"
                                
     
-#line 100 "source/main.md"
+#line 101 "./source/main.md"
     for( MgInputFile* file = context.firstInputFile; file; file = file->next )
     {
         MgWriteDocFile( &context, file );
     }
     
-#line 93 "source/main.md"
+#line 94 "./source/main.md"
                                         
     
-#line 14 "source/main.md"
+#line 14 "./source/main.md"
                          
         return 0;
     }
     
-#line 129 "source/main.md"
+#line 130 "./source/main.md"
                        
     

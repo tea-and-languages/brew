@@ -75,17 +75,16 @@ if %errorlevel% NEQ 0 (
 ) else (
 	goto Compile
 )
-AFTERCHECKCL:
+:AFTERCHECKCL
 
 :: Start by attempting to use `vswhere` to locate things.
 set VSWHERE="C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe"
 if exist "%VSWHERE%" (
-	echo %VSWHERE%
 	set VSPATH=
 	for /F "delims=" %%F in ('%VSWHERE% -latest -property installationPath') do set VSPATH=%%F
 
 	if exist "%VSPATH%" (
-		call "%VSPATH%\VC\Auxiliary\Build\vcvarsall.bat x86"
+		call "%VSPATH%\VC\Auxiliary\Build\vcvarsall.bat" x86
 		goto Compile
 	)
 )

@@ -245,6 +245,7 @@ The `Context` type holds the state of the entire Mangle session.
         MgInputFile*        metaDataFile;
 
         MgScrapKind         defaultScrapKind;
+        struct OptionsT*            options;
     };
 
 

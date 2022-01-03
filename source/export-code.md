@@ -212,22 +212,40 @@ Code Export
         }
     }
 
+    void writeOutputPath(
+        MgContext*          context,
+        MgScrapNameGroup*   codeFile,
+        MgWriter*           writer)
+    {
+        // if we have an output path, write it first...
+        auto sourcePath = context->options->sourceOutputPath;
+        if(sourcePath)
+        {
+            MgWriteCString(writer, sourcePath);
+        }
+
+        MgString id = codeFile->id;
+        MgWriteString(writer, id);
+    }
+
     void MgWriteCodeFile(
         MgContext*          context,
         MgScrapNameGroup*   codeFile )
     {
         MgString id = codeFile->id;
 
-        // \todo: alloca or malloc the name buffer when required...
-        char nameBuffer[1024];
-        char* writeCursor = &nameBuffer[0];
-        char const* readCursor = id.begin;
-        char const* end = id.end;
-        while( readCursor != end )
-        {
-            *writeCursor++ = *readCursor++;
-        }
-        *writeCursor++ = 0;
+        // We want to construct the name of the file to write
+        int pathSize = 0;
+        MgWriter pathWriter;
+        MgInitializeCountingWriter( &pathWriter, &pathSize );
+        writeOutputPath(context, codeFile, &pathWriter);
+
+        char* pathBuffer = (char*) malloc(pathSize + 1);
+        char const* outputPath = pathBuffer;
+        pathBuffer[pathSize] = 0;
+
+        MgInitializeMemoryWriter( &pathWriter, pathBuffer );
+        writeOutputPath(context, codeFile, &pathWriter);
 
         MgWriter writer;
 
@@ -244,5 +262,5 @@ Code Export
         ExportScrapNameGroupImpl( context, codeFile, &writer );
 
         MgString outputText = MgMakeString( outputBuffer, outputBuffer + outputSize );
-        MgWriteTextToFile(outputText, nameBuffer);
+        MgWriteTextToFile(outputText, outputPath);
     }
