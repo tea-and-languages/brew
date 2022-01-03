@@ -4634,6 +4634,36 @@
                         return 0;
                     }
                 }
+                else if( strcmp(option+1, "output-docs-dir") == 0 )
+                {
+                    // meta-data file
+                    if( remaining != 0 )
+                    {
+                        options->docOutputPath = *readCursor++;
+                        --remaining;
+                        continue;
+                    }
+                    else
+                    {
+                        fprintf(stderr, "expected argument for option %s\n", option);
+                        return 0;
+                    }
+                }
+                else if( strcmp(option+1, "output-source-dir") == 0 )
+                {
+                    // meta-data file
+                    if( remaining != 0 )
+                    {
+                        options->sourceOutputPath = *readCursor++;
+                        --remaining;
+                        continue;
+                    }
+                    else
+                    {
+                        fprintf(stderr, "expected argument for option %s\n", option);
+                        return 0;
+                    }
+                }
                 else if( strcmp(option+1, "generate-html") == 0)
                 {
                     options->generateHTML = MG_TRUE;
