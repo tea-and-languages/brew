@@ -1243,6 +1243,10 @@ The Markdown reference says:
             {
                 scrapKind = kScrapKind_RawMacro;
             }
+            else if( MgStringsAreEqual(scrapKindName, CString("once")) )
+            {
+                scrapKind = kScrapKind_OnceMacro;
+            }
             else
             {
                 fprintf(stderr, "unknown scrap kind: \"");

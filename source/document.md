@@ -103,6 +103,16 @@ A scrap declared with the `raw:` prefix works like a `global:` scrap, except tha
     <<scrap kinds>>+=
     kScrapKind_RawMacro,
 
+#### Once Macros ####
+
+A scarp declared with the `once:` prefix works like a `global:` scrap, except that it will only ever be output a single time during emission of source code. This can be used for blocks of declarations to help ensure correct ordering (similar to use of `#include` guards in C/C++ projects).
+
+    <<scrap kinds>>+=
+    kScrapKind_OnceMacro,
+
+    <<scrap name group members>>+=
+    bool hasBeenExported = false;
+
 ### File Groups ###
 
 On a per-source-file basic, we collect together scrap definitions with the same name to make a `ScrapFileGroup`.

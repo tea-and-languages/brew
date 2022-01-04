@@ -169,6 +169,8 @@ Code Export
         }
     }
 
+    
+
     void ExportScrapNameGroupImpl(
         MgContext*        context,
         MgScrapNameGroup* nameGroup,
@@ -182,6 +184,85 @@ Code Export
         }
     }
 
+    void resetExportedFlags(
+        MgScrapNameGroup* nameGroup);
+
+    void resetExportedFlagsImplRec(
+        MgScrap*      scrap,
+        MgElement*    element);
+
+    void resetExportedFlagsImpl(
+        MgScrap*    scrap,
+        MgElement*  element )
+    {
+        switch( element->kind )
+        {
+        case kMgElementKind_CodeBlock:
+        case kMgElementKind_Text:
+            resetExportedFlagsImplRec(scrap, element->firstChild);
+            break;
+
+        case kMgElementKind_ScrapRef:
+            {
+                MgScrapFileGroup* scrapGroup = MgFindAttribute(element, "$scrap-group")->scrapFileGroup;
+                resetExportedFlags(scrapGroup->nameGroup);
+            }
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    void resetExportedFlagsImplRec(
+        MgScrap*      scrap,
+        MgElement*    firstElement)
+    {
+        for( MgElement* element = firstElement; element; element = element->next )
+            resetExportedFlagsImpl( scrap, element );
+    }
+
+    void resetExportedFlagsImpl(
+        MgScrap*      scrap )
+    {
+        resetExportedFlagsImplRec(scrap, scrap->body);
+    }
+
+    void resetExportedFlagsImpl(
+        MgScrapFileGroup* fileGroup)
+    {
+        MgScrap* scrap = fileGroup->firstScrap;
+        while( scrap )
+        {
+            resetExportedFlagsImpl( scrap );
+            scrap = scrap->next;
+        }
+    }
+
+    void resetExportedFlags(
+        MgScrapNameGroup* nameGroup)
+    {
+        nameGroup->hasBeenExported = false;
+
+        MgScrapFileGroup* fileGroup = nameGroup->firstFileGroup;
+        while( fileGroup )
+        {
+            resetExportedFlagsImpl( fileGroup );
+            fileGroup = fileGroup->next;
+        }
+    }
+
+    void exportScrapNameGroupOnce(
+        MgContext*        context,
+        MgScrapNameGroup* nameGroup,
+        MgWriter*         writer )
+    {
+        if(!nameGroup->hasBeenExported)
+        {
+            ExportScrapNameGroupImpl(context, nameGroup, writer);
+            nameGroup->hasBeenExported = true;
+        }
+    }
 
     void ExportScrapFileGroup(
         MgContext*        context,
@@ -208,6 +289,10 @@ Code Export
 
         case kScrapKind_LocalMacro:
             ExportScrapFileGroupImpl(context, fileGroup, writer);
+            break;
+
+        case kScrapKind_OnceMacro:
+            exportScrapNameGroupOnce(context, fileGroup->nameGroup, writer);
             break;
         }
     }
@@ -257,6 +342,8 @@ Code Export
         int outputSize = counter;
         char* outputBuffer = (char*) malloc(outputSize + 1);
         outputBuffer[outputSize] = 0;
+
+        resetExportedFlags( codeFile );
         
         MgInitializeMemoryWriter( &writer, outputBuffer );
         ExportScrapNameGroupImpl( context, codeFile, &writer );

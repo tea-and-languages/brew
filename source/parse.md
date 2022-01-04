@@ -201,6 +201,7 @@ Parsing
         if( !nameGroup )
         {
             nameGroup = (MgScrapNameGroup*) malloc(sizeof(MgScrapNameGroup));
+            memset(nameGroup, 0, sizeof(MgScrapNameGroup));
             nameGroup->kind = kind;
             nameGroup->id   = id;
             nameGroup->name = 0;
